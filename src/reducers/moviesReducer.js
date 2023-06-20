@@ -52,7 +52,7 @@ export const fetchMovies = () => async (dispatch) => {
     const movies = await fetchAllMovies(); // Call the TMDB API to fetch all movies
       dispatch(fetchMoviesSuccess(movies));
   } catch (error) {
-    dispatch(fetchMoviesFailure(error.message));
+    dispatch(fetchMoviesFailure('Failed to fetch movies'));
   }
 };
 
