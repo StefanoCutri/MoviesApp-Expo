@@ -7,12 +7,14 @@ import {
   TextInput,
   FlatList,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 // import {searchMovies} from './src/reducers/moviesReducer'
 import MovieItem from "../components/MovieItem";
 import { fetchMovies, searchMovies } from "../reducers/moviesReducer";
 import { ActivityIndicator } from "react-native";
 import HeaderImage from "./HeaderImage";
+import SearchInput from "./SearchInput";
 
 const MovieListScreen = () => {
   const dispatch = useDispatch();
@@ -36,60 +38,50 @@ const MovieListScreen = () => {
     return <ActivityIndicator />;
   } else {
     return (
-      <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignContent: "center",
-            paddingVertical: 10,
-          }}
-        >
+      <ScrollView>
+        <View style={styles.container}>
+          <SearchInput />
+          {state.movies.length > 0 && <HeaderImage movies={state.movies} />}
           <Text style={styles.title}>Movies</Text>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search by title"
-            value={searchTerm}
-            onChangeText={handleSearch}
-            onSubmitEditing={handleSearch}
+          <FlatList
+            data={state.movies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 50,
+            }}
+          />
+          <FlatList
+            data={state.movies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 50,
+            }}
+          />
+          <FlatList
+            data={state.movies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 10,
+            }}
           />
         </View>
-        {state.movies.length > 0 && <HeaderImage movies={state.movies} />}
-        <Text style={styles.title}>Movies</Text>
-        <FlatList
-          data={state.movies}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <MovieItem movie={item} />}
-          horizontal
-          style={{
-            marginBottom: 50,
-          }}
-        />
-        <FlatList
-          data={state.movies}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <MovieItem movie={item} />}
-          horizontal
-          style={{
-            marginBottom: 50,
-          }}
-        />
-        <FlatList
-          data={state.movies}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <MovieItem movie={item} />}
-          horizontal
-          style={{
-            marginBottom: 10,
-          }}
-        />
-      </View>
+      </ScrollView>
     );
   }
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#cbcbcb",
+    backgroundColor: "#000",
   },
   loadingIndicator: {
     justifyContent: "center",
@@ -101,12 +93,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "red",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    // marginBottom: 16,
-  },
-  searchInput: {},
+
 });
 
 export default MovieListScreen;
