@@ -12,6 +12,7 @@ import {
 import MovieItem from "../components/MovieItem";
 import { fetchMovies, searchMovies } from "../reducers/moviesReducer";
 import { ActivityIndicator } from "react-native";
+import HeaderImage from "./HeaderImage";
 
 const MovieListScreen = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,10 @@ const MovieListScreen = () => {
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
-  
+
   useEffect(() => {
     dispatch(searchMovies(searchTerm));
-  }, [searchTerm])
-  
+  }, [searchTerm]);
 
   const handleSearch = (textValue) => {
     setSearchTerm(textValue);
@@ -37,18 +37,50 @@ const MovieListScreen = () => {
   } else {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Movie List</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search by title"
-          value={searchTerm}
-          onChangeText={handleSearch}
-          onSubmitEditing={handleSearch}
+        <View
+          style={{
+            flexDirection: "row",
+            alignContent: "center",
+            paddingVertical: 10,
+          }}
+        >
+          <Text style={styles.title}>Movies</Text>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search by title"
+            value={searchTerm}
+            onChangeText={handleSearch}
+            onSubmitEditing={handleSearch}
+          />
+        </View>
+        {state.movies.length > 0 && <HeaderImage movies={state.movies} />}
+        <Text style={styles.title}>Movies</Text>
+        <FlatList
+          data={state.movies}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <MovieItem movie={item} />}
+          horizontal
+          style={{
+            marginBottom: 50,
+          }}
         />
         <FlatList
           data={state.movies}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <MovieItem movie={item} />}
+          horizontal
+          style={{
+            marginBottom: 50,
+          }}
+        />
+        <FlatList
+          data={state.movies}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <MovieItem movie={item} />}
+          horizontal
+          style={{
+            marginBottom: 10,
+          }}
         />
       </View>
     );
@@ -57,8 +89,7 @@ const MovieListScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    backgroundColor: "#cbcbcb",
   },
   loadingIndicator: {
     justifyContent: "center",
@@ -73,8 +104,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 16,
+    // marginBottom: 16,
   },
+  searchInput: {},
 });
 
 export default MovieListScreen;

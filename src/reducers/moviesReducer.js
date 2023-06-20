@@ -5,6 +5,10 @@ import { fetchAllMovies } from "../data/api";
 
 const initialState = {
   movies: [],
+  popular: [],
+  now_playing: [],
+  trending: [],
+  upcoming: [],
   isLoading: false,
   error: null,
 };
@@ -15,7 +19,6 @@ const moviesSlice = createSlice({
   reducers: {
     searchMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
-      console.log(searchTerm);
       state.movies.forEach((movie) => {
         if (movie.title.toLowerCase().includes(searchTerm)) {
           movie.visible = true;
@@ -51,9 +54,9 @@ export const fetchMovies = () => async (dispatch) => {
   try {
     dispatch(fetchMoviesStart());
     const movies = await fetchAllMovies(); // Call the TMDB API to fetch all movies
-      dispatch(fetchMoviesSuccess(movies));
+    dispatch(fetchMoviesSuccess(movies));
   } catch (error) {
-    dispatch(fetchMoviesFailure('Failed to fetch movies'));
+    dispatch(fetchMoviesFailure(error));
   }
 };
 

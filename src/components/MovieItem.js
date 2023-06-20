@@ -1,30 +1,24 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const MovieItem = ({ movie }) => {
   if (movie.visible === undefined || movie.visible === null || movie.visible) {
     return (
-      <TouchableOpacity>
-        <View style={styles.container}>
+      <TouchableOpacity style={styles.movieItem}>
         <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
-        style={{ width: 200, height: 200 }}
-      />
-          {/* <View style={styles.detailsContainer}>
-            <Text style={styles.title}>{movie.title}</Text>
-            <Text style={styles.overview}>{movie.overview}</Text>
-          </View> */}
-        </View>
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          }}
+          style={{ width: 120, height: 160, borderRadius: 20 }}
+        />
       </TouchableOpacity>
     );
   }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 16,
+  movieItem: {
+    paddingHorizontal: 12,
   },
   poster: {
     width: 80,
