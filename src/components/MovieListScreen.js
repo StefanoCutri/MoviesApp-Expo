@@ -22,62 +22,37 @@ const MovieListScreen = () => {
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
+  
+  useEffect(() => {
+    dispatch(searchMovies(searchTerm));
+  }, [searchTerm])
+  
 
   const handleSearch = (textValue) => {
     setSearchTerm(textValue);
-    dispatch(searchMovies(searchTerm));
   };
 
   if (state.isLoading) {
     return <ActivityIndicator />;
   } else {
     return (
-        <View style={styles.container}>
-          <Text style={styles.title}>Movie List</Text>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search by title"
-            value={searchTerm}
-            onChangeText={handleSearch}
-            onSubmitEditing={handleSearch}
-          />
-          <FlatList
-            data={state.movies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <MovieItem movie={item} />}
-            horizontal 
-          />
-        </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Movie List</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search by title"
+          value={searchTerm}
+          onChangeText={handleSearch}
+          onSubmitEditing={handleSearch}
+        />
+        <FlatList
+          data={state.movies}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <MovieItem movie={item} />}
+        />
+      </View>
     );
   }
-
-  //   if (state.isLoading) {
-  //     return (
-  //         <ActivityIndicator />
-  //     )
-  //   } else {
-  //     if (state.error !== null) {
-  //         return (
-  //           <View style={styles.container}>
-  //             <Text style={styles.title}>Movie List</Text>
-  //             <TextInput
-  //               style={styles.searchInput}
-  //               placeholder="Search by title"
-  //               value={searchTerm}
-  //               onChangeText={handleSearch}
-  //               onSubmitEditing={handleSearch}
-  //             />
-  //             <FlatList
-  //               data={state.movies}
-  //               keyExtractor={(item) => item.id.toString()}
-  //               renderItem={({ item }) => <MovieItem movie={item} />}
-  //             />
-  //           </View>
-  //         );
-  //     } else {
-  //         return <Text>{state.error}</Text>;
-  //     }
-  //   }
 };
 
 const styles = StyleSheet.create({

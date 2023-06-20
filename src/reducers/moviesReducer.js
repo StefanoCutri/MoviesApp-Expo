@@ -15,6 +15,7 @@ const moviesSlice = createSlice({
   reducers: {
     searchMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
+      console.log(searchTerm);
       state.movies.forEach((movie) => {
         if (movie.title.toLowerCase().includes(searchTerm)) {
           movie.visible = true;

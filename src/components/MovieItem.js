@@ -7,13 +7,13 @@ const MovieItem = ({ movie }) => {
       <TouchableOpacity>
         <View style={styles.container}>
         <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}` }}
+        source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
         style={{ width: 200, height: 200 }}
       />
-          <View style={styles.detailsContainer}>
+          {/* <View style={styles.detailsContainer}>
             <Text style={styles.title}>{movie.title}</Text>
             <Text style={styles.overview}>{movie.overview}</Text>
-          </View>
+          </View> */}
         </View>
       </TouchableOpacity>
     );
