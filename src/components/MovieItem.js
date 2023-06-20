@@ -1,10 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const MovieItem = ({ movie }) => {
+const navigation = useNavigation()
+
   if (movie.visible === undefined || movie.visible === null || movie.visible) {
     return (
-      <TouchableOpacity style={styles.movieItem}>
+      <TouchableOpacity style={styles.movieItem} onPress={() => navigation.navigate("MovieDetailsScreen")}>
         <Image
           source={{
             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
