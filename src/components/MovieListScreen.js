@@ -45,6 +45,7 @@ const MovieListScreen = () => {
             data={state.movies}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => <MovieItem movie={item} />}
+            horizontal 
           />
         </View>
     );
