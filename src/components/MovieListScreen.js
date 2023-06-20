@@ -20,29 +20,30 @@ const MovieListScreen = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.movies);
 
-  const [searchTerm, setSearchTerm] = useState("");
-
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(searchMovies(searchTerm));
-  }, [searchTerm]);
-
-  const handleSearch = (textValue) => {
-    setSearchTerm(textValue);
-  };
 
   if (state.isLoading) {
     return <ActivityIndicator />;
   } else {
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <SearchInput />
-          {state.movies.length > 0 && <HeaderImage movies={state.movies} />}
-          <Text style={styles.title}>Movies</Text>
+      <View style={styles.container}>
+        {/* Search */}
+        <SearchInput />
+        <ScrollView>
+        {state.movies.length > 0 && <HeaderImage movies={state.movies} />}
+          <FlatList
+            data={state.movies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 50,
+              marginTop: 20
+            }}
+          />
           <FlatList
             data={state.movies}
             keyExtractor={(item) => item.id.toString()}
@@ -60,21 +61,11 @@ const MovieListScreen = () => {
             showsHorizontalScrollIndicator={false}
             horizontal
             style={{
-              marginBottom: 50,
+              marginBottom: 60,
             }}
           />
-          <FlatList
-            data={state.movies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <MovieItem movie={item} />}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            style={{
-              marginBottom: 10,
-            }}
-          />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 };
@@ -93,7 +84,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "red",
   },
-
 });
 
 export default MovieListScreen;
