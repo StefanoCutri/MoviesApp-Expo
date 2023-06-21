@@ -14,7 +14,6 @@ import StarRating from "react-native-star-rating-widget";
 import ISO6391 from "iso-639-1";
 import CastItem from "./CastItem";
 import { ActivityIndicator } from "react-native";
-import { fetchMovies } from "../../data/api";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();

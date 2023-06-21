@@ -22,6 +22,19 @@ jest.mock("../../data/api", () => ({
   fetchSingleMovieCast: jest.fn(),
 }));
 
+const initialState = {
+  movies: [],
+  popular: [],
+  now_playing: [],
+  trending: [],
+  upcoming: [],
+  singleMovie: [],
+  movieCast: [],
+  isLoading: false,
+  isLoadinSingleMovie: false,
+  error: null,
+};
+
 describe("moviesReducer", () => {
   describe("fetchMovies", () => {
     it("should dispatch fetchMoviesStart and fetchMoviesSuccess when fetching movies is successful", async () => {
@@ -131,72 +144,24 @@ describe("moviesReducer", () => {
   });
 
   describe("moviesSlice reducer", () => {
-    const initialState = {
-      movies: [],
-      popular: [],
-      now_playing: [],
-      trending: [],
-      upcoming: [],
-      singleMovie: [],
-      movieCast: [],
-      isLoading: false,
-      isLoadinSingleMovie: false,
-      error: null,
-    };
     it("should return the initial state", () => {
       const nextState = moviesReducer(undefined, {});
       expect(nextState).toEqual(initialState);
     });
 
     it("should handle fetchMoviesStart", () => {
-      const initialState = {
-        movies: [],
-        popular: [],
-        now_playing: [],
-        trending: [],
-        upcoming: [],
-        singleMovie: [],
-        movieCast: [],
-        isLoading: false,
-        isLoadinSingleMovie: false,
-        error: null,
-      };
       const nextState = moviesReducer(initialState, fetchMoviesStart());
       expect(nextState.isLoading).toBe(true);
       expect(nextState.error).toBe(null);
     });
 
     it("should handle fetchSingleMoviesStart", () => {
-      const initialState = {
-        movies: [],
-        popular: [],
-        now_playing: [],
-        trending: [],
-        upcoming: [],
-        singleMovie: [],
-        movieCast: [],
-        isLoading: false,
-        isLoadinSingleMovie: false,
-        error: null,
-      };
       const nextState = moviesReducer(initialState, fetchSingleMoviesStart());
       expect(nextState.isLoadinSingleMovie).toBe(true);
       expect(nextState.error).toBe(null);
     });
 
     it("should handle fetchMoviesSuccess", () => {
-      const initialState = {
-        movies: [],
-        popular: [],
-        now_playing: [],
-        trending: [],
-        upcoming: [],
-        singleMovie: [],
-        movieCast: [],
-        isLoading: false,
-        isLoadinSingleMovie: false,
-        error: null,
-      };
       const movies = [
         { id: 1, title: "Movie 1" },
         { id: 2, title: "Movie 2" },
@@ -208,18 +173,6 @@ describe("moviesReducer", () => {
     });
 
     it("should handle fetchSingleMovieSuccess", () => {
-      const initialState = {
-        movies: [],
-        popular: [],
-        now_playing: [],
-        trending: [],
-        upcoming: [],
-        singleMovie: [],
-        movieCast: [],
-        isLoading: false,
-        isLoadinSingleMovie: false,
-        error: null,
-      };
       const movie = { id: 1, title: "Movie 1" };
       const nextState = moviesReducer(
         initialState,
@@ -231,18 +184,6 @@ describe("moviesReducer", () => {
     });
 
     it("should handle fetchSingleMovieCastSuccess", () => {
-      const initialState = {
-        movies: [],
-        popular: [],
-        now_playing: [],
-        trending: [],
-        upcoming: [],
-        singleMovie: [],
-        movieCast: [],
-        isLoading: false,
-        isLoadinSingleMovie: false,
-        error: null,
-      };
       const cast = [
         { id: 1, name: "Actor 1" },
         { id: 2, name: "Actor 2" },
@@ -257,18 +198,6 @@ describe("moviesReducer", () => {
     });
 
     it("should handle fetchMoviesFailure", () => {
-      const initialState = {
-        movies: [],
-        popular: [],
-        now_playing: [],
-        trending: [],
-        upcoming: [],
-        singleMovie: [],
-        movieCast: [],
-        isLoading: false,
-        isLoadinSingleMovie: false,
-        error: null,
-      };
       const error = "Failed to fetch movies";
       const nextState = moviesReducer(initialState, fetchMoviesFailure(error));
       expect(nextState.isLoadinSingleMovie).toBe(false);
@@ -277,73 +206,3 @@ describe("moviesReducer", () => {
     });
   });
 });
-// import { useDispatch } from 'react-redux';
-// import moviesReducer, {
-//   fetchMoviesStart,
-//   fetchMoviesSuccess,
-//   fetchMoviesFailure,
-//   searchMovies,
-//   fetchMovies,
-// } from '../../reducers/moviesReducer';
-// import {fetchAllMovies} from '../../data/api'
-
-// jest.mock('react-redux', () => ({
-//   useDispatch: jest.fn(),
-// }));
-
-// jest.mock('../../data/api', () => ({
-//   fetchAllMovies: jest.fn(),
-// }));
-
-// describe('moviesReducer', () => {
-//   describe('fetchMovies', () => {
-//     it('should dispatch fetchMoviesStart and fetchMoviesSuccess when fetching movies is successful', async () => {
-//       const dispatch = jest.fn();
-//       const movies = [{ id: 1, title: 'Movie 1' }, { id: 2, title: 'Movie 2' }];
-//       const mockFetchAllMovies = jest.fn().mockResolvedValue(movies);
-//       fetchAllMovies.mockImplementation(mockFetchAllMovies);
-//       useDispatch.mockReturnValue(dispatch);
-
-//       await fetchMovies()(dispatch);
-
-//       expect(dispatch).toHaveBeenCalledWith(fetchMoviesStart());
-//       expect(mockFetchAllMovies).toHaveBeenCalled();
-//       expect(dispatch).toHaveBeenCalledWith(fetchMoviesSuccess(movies));
-//     });
-
-//     it('should dispatch fetchMoviesStart and fetchMoviesFailure when fetching movies fails', async () => {
-//       const dispatch = jest.fn();
-//       const error = 'Failed to fetch movies';
-//       const mockFetchAllMovies = jest.fn().mockRejectedValue(error);
-//       fetchAllMovies.mockImplementation(mockFetchAllMovies);
-//       useDispatch.mockReturnValue(dispatch);
-
-//       await fetchMovies()(dispatch);
-
-//       expect(dispatch).toHaveBeenCalledWith(fetchMoviesStart());
-//       expect(mockFetchAllMovies).toHaveBeenCalled();
-//       expect(dispatch).toHaveBeenCalledWith(fetchMoviesFailure(error));
-//     });
-//   });
-
-//   describe('searchMovies', () => {
-//     it('should update the visibility of movies based on the search term', () => {
-//       const state = {
-//         movies: [
-//           { id: 1, title: 'Movie 1', visible: true },
-//           { id: 2, title: 'Movie 2', visible: true },
-//           { id: 3, title: 'Movie 3', visible: true },
-//         ],
-//         isLoading: false,
-//         error: null,
-//       };
-//       const action = { payload: 'movie 1' };
-
-//       const newState = moviesReducer(state, searchMovies(action.payload));
-
-//       expect(newState.movies[0].visible).toBe(true);
-//       expect(newState.movies[1].visible).toBe(false);
-//       expect(newState.movies[2].visible).toBe(false);
-//     });
-//   });
-// });
