@@ -10,10 +10,11 @@ const MovieDetailsScreen = ({ route, navigation }) => {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
   useEffect(() => {
+    console.log(movie.id);
     navigation.setOptions({
       title: movie.title,
       headerLeft: (props) => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.goBack()} >
           <ArrowLeftIcon {...props} />
         </TouchableOpacity>
       ),
