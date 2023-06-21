@@ -13,8 +13,6 @@ import { fetchOneMovie } from "../../reducers/moviesReducer";
 import StarRating from "react-native-star-rating-widget";
 import ISO6391 from "iso-639-1";
 
-// import "intl/locale-data/jsonp/en";/
-
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.movies);
@@ -24,6 +22,9 @@ const MovieDetailsScreen = ({ route, navigation }) => {
   const image = {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
+
+
+  console.log(state.singleMovie.id);
 
   useEffect(() => {
     dispatch(fetchOneMovie(movie.id));

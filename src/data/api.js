@@ -25,3 +25,16 @@ export const fetchSingleMovie = async (movideId) => {
     throw error;
   }
 };
+
+export const fetchSingleMovieCAST = async (movideId) => {
+  try {
+    const response = await fetch(
+      `http://api.themoviedb.org/3/movie/${movideId}/casts?api_key=${API_KEY}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+    throw error;
+  }
+};
