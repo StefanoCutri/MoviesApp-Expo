@@ -10,11 +10,11 @@ import {
   ScrollView,
 } from "react-native";
 // import {searchMovies} from './src/reducers/moviesReducer'
-import MovieItem from "../components/MovieItem";
-import { fetchMovies, searchMovies } from "../reducers/moviesReducer";
+import MovieItem from "./MovieItem";
+import { fetchMovies, searchMovies } from "../../reducers/moviesReducer";
 import { ActivityIndicator } from "react-native";
-import HeaderImage from "./HeaderImage";
-import SearchInput from "./SearchInput";
+import HeaderImage from "../Header/HeaderImage";
+import SearchInput from "../Header/SearchInput";
 import LinearGradient from "react-native-linear-gradient";
 
 const MovieListScreen = () => {
@@ -45,7 +45,7 @@ const MovieListScreen = () => {
               </HeaderImage>
             )}
             {/* Movies */}
-            <Text style={styles.title}>Popular Movies</Text>
+            <Text style={styles.title}>Popular</Text>
             <FlatList
               data={state.movies}
               keyExtractor={(item) => item.id.toString()}
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#fff",
-    paddingTop: 20,
     marginLeft: 10,
+    marginTop: 100
   },
   loadingIndicator: {
     justifyContent: "center",

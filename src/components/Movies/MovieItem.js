@@ -7,7 +7,7 @@ const navigation = useNavigation()
 
   if (movie.visible === undefined || movie.visible === null || movie.visible) {
     return (
-      <TouchableOpacity style={styles.movieItem} onPress={() => navigation.navigate("MovieDetailsScreen")}>
+      <TouchableOpacity style={styles.movieItem} onPress={() => navigation.navigate("MovieDetailsScreen", movie)}>
         <Image
           source={{
             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
