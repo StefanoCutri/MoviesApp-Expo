@@ -1,4 +1,4 @@
-const API_KEY = '';
+const API_KEY = '913e10c847c55fbb2045a16908b5870b';
 
 export const fetchAllMovies = async () => {
   try {
@@ -19,7 +19,7 @@ export const fetchSingleMovie = async (movideId) => {
       `https://api.themoviedb.org/3/movie/${movideId}?api_key=${API_KEY}`
     );
     const data = await response.json();
-    return data.results;
+    return data;
   } catch (error) {
     console.error('Error fetching movies:', error);
     throw error;

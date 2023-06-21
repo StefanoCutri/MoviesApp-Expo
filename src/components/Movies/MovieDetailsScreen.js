@@ -3,14 +3,21 @@ import React, { useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
 import { ArrowLeftIcon } from "react-native-heroicons/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSingleMovie } from "../../data/api";
+import { fetchOneMovie } from "../../reducers/moviesReducer";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.movies);
+
   const movie = route.params;
   const image = {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
+
   useEffect(() => {
-    console.log(movie.id);
+    dispatch(fetchOneMovie(movie.id));
     navigation.setOptions({
       title: movie.title,
       headerLeft: (props) => (
@@ -19,9 +26,8 @@ const MovieDetailsScreen = ({ route, navigation }) => {
         </TouchableOpacity>
       ),
     });
-  }, []);
+  }, [dispatch]);
 
-  console.log(typeof movie.vote_average);
   return (
     <View style={styles.container}>
       <ImageBackground style={{ width: "100%", height: 220 }} source={image}>

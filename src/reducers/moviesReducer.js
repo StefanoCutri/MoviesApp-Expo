@@ -1,7 +1,7 @@
 // moviesReducer.js
 
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllMovies } from "../data/api";
+import { fetchAllMovies, fetchSingleMovie } from "../data/api";
 
 const initialState = {
   movies: [],
@@ -9,6 +9,7 @@ const initialState = {
   now_playing: [],
   trending: [],
   upcoming: [],
+  singleMovie: [],
   isLoading: false,
   error: null,
 };
@@ -36,6 +37,11 @@ const moviesSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    fetchSingleMovieSuccess(state, action){
+      state.singleMovie = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
     fetchMoviesFailure(state, action) {
       state.isLoading = false;
       state.error = action.payload;
@@ -48,6 +54,7 @@ export const {
   fetchMoviesSuccess,
   fetchMoviesFailure,
   searchMovies,
+  fetchSingleMovieSuccess
 } = moviesSlice.actions;
 
 export const fetchMovies = () => async (dispatch) => {
@@ -59,5 +66,16 @@ export const fetchMovies = () => async (dispatch) => {
     dispatch(fetchMoviesFailure(error));
   }
 };
+
+export const fetchOneMovie = (movieId) => async (dispatch) => {
+  try {
+    dispatch(fetchMoviesStart());
+    const movie = await fetchSingleMovie(movieId); // Call the TMDB API to fetch all movies
+    dispatch(fetchSingleMovieSuccess(movie));
+  } catch (error) {
+    dispatch(fetchMoviesFailure(error));
+  }
+};
+
 
 export default moviesSlice.reducer;
