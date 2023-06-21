@@ -12,6 +12,7 @@ const initialState = {
   singleMovie: [],
   movieCast: [],
   isLoading: false,
+  isLoadinSingleMovie: false,
   error: null,
 };
 
@@ -33,6 +34,11 @@ const moviesSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
+    fetchSingleMoviesStart(state) {
+      state.isLoadinSingleMovie = true;
+      state.error = null;
+      console.log("start", state.isLoadinSingleMovie);
+    },
     fetchMoviesSuccess(state, action) {
       state.movies = action.payload;
       state.isLoading = false;
@@ -40,15 +46,17 @@ const moviesSlice = createSlice({
     },
     fetchSingleMovieSuccess(state, action){
       state.singleMovie = action.payload;
-      state.isLoading = false;
+      state.isLoadinSingleMovie = false;
       state.error = null;
+      console.log("succes", state.isLoadinSingleMovie);
     },
     fetchSingleMovieCastSuccess(state, action){
       state.movieCast = action.payload;
-      state.isLoading = false;
+      state.isLoadinSingleMovie = false;
       state.error = null;
     },
     fetchMoviesFailure(state, action) {
+      state.isLoadinSingleMovie = false;
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -61,7 +69,8 @@ export const {
   fetchMoviesFailure,
   searchMovies,
   fetchSingleMovieSuccess,
-  fetchSingleMovieCastSuccess
+  fetchSingleMovieCastSuccess,
+  fetchSingleMoviesStart
 } = moviesSlice.actions;
 
 export const fetchMovies = () => async (dispatch) => {
@@ -76,7 +85,7 @@ export const fetchMovies = () => async (dispatch) => {
 
 export const fetchOneMovie = (movieId) => async (dispatch) => {
   try {
-    dispatch(fetchMoviesStart());
+    dispatch(fetchSingleMoviesStart());
     const movie = await fetchSingleMovie(movieId); // Call the TMDB API to fetch all movies
     dispatch(fetchSingleMovieSuccess(movie));
   } catch (error) {

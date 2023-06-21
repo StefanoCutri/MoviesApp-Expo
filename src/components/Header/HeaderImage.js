@@ -28,7 +28,6 @@ export default HeaderImage;
 const styles = StyleSheet.create({
   headerContainer: {
     height: 200,
-    backgroundColor: "red",
     position: "relative",
   },
   background: {
