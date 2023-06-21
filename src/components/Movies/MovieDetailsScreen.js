@@ -13,6 +13,7 @@ import { fetchCast, fetchOneMovie } from "../../reducers/moviesReducer";
 import StarRating from "react-native-star-rating-widget";
 import ISO6391 from "iso-639-1";
 import CastItem from "./CastItem";
+import { ActivityIndicator } from "react-native";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -24,8 +25,7 @@ const MovieDetailsScreen = ({ route, navigation }) => {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
 
-  console.log(state.singleMovie.id);
-
+  console.log(state.movieCast);
   useEffect(() => {
     dispatch(fetchOneMovie(movie.id));
     dispatch(fetchCast(movie.id));
@@ -50,7 +50,6 @@ const MovieDetailsScreen = ({ route, navigation }) => {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     return `${hours}h ${minutes}min`;
   };
-
   return (
     <View style={styles.container}>
       <ImageBackground style={{ width: "100%", height: 220 }} source={image}>
@@ -181,21 +180,32 @@ const MovieDetailsScreen = ({ route, navigation }) => {
           {movie.overview}
         </Text>
         {/* Cast */}
-        <View style={{
-          marginTop: 40,
-          marginLeft: 15
-        }}>
-          <Text style={{...styles.textWhite, fontWeight: "bold", fontSize: 22}}>Cast</Text>
+        <View
+          style={{
+            marginTop: 40,
+            marginLeft: 15,
+          }}
+        >
+          <Text
+            style={{ ...styles.textWhite, fontWeight: "bold", fontSize: 22 }}
+          >
+            Cast
+          </Text>
+          {state.isLoading ? (
+            <ActivityIndicator color="#fff" size={100}/>
+          )
+          :
           <FlatList
-            data={state.movieCast.cast.slice(0, 10)}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <CastItem item={item} />}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            style={{
-              marginTop: 10,
-            }}
-          />
+          data={state.movieCast.cast.slice(0, 10)}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <CastItem item={item} />}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          style={{
+            marginTop: 10,
+          }}
+        />
+        }
         </View>
       </ImageBackground>
     </View>
