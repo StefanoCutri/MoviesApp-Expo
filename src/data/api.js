@@ -26,7 +26,7 @@ export const fetchSingleMovie = async (movideId) => {
   }
 };
 
-export const fetchSingleMovieCAST = async (movideId) => {
+export const fetchSingleMovieCast = async (movideId) => {
   try {
     const response = await fetch(
       `http://api.themoviedb.org/3/movie/${movideId}/casts?api_key=${API_KEY}`

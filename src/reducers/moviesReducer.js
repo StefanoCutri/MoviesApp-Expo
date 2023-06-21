@@ -1,7 +1,7 @@
 // moviesReducer.js
 
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllMovies, fetchSingleMovie } from "../data/api";
+import { fetchAllMovies, fetchSingleMovie, fetchSingleMovieCast } from "../data/api";
 
 const initialState = {
   movies: [],
@@ -10,6 +10,7 @@ const initialState = {
   trending: [],
   upcoming: [],
   singleMovie: [],
+  movieCast: [],
   isLoading: false,
   error: null,
 };
@@ -42,6 +43,11 @@ const moviesSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    fetchSingleMovieCastSuccess(state, action){
+      state.movieCast = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
     fetchMoviesFailure(state, action) {
       state.isLoading = false;
       state.error = action.payload;
@@ -54,7 +60,8 @@ export const {
   fetchMoviesSuccess,
   fetchMoviesFailure,
   searchMovies,
-  fetchSingleMovieSuccess
+  fetchSingleMovieSuccess,
+  fetchSingleMovieCastSuccess
 } = moviesSlice.actions;
 
 export const fetchMovies = () => async (dispatch) => {
@@ -72,6 +79,16 @@ export const fetchOneMovie = (movieId) => async (dispatch) => {
     dispatch(fetchMoviesStart());
     const movie = await fetchSingleMovie(movieId); // Call the TMDB API to fetch all movies
     dispatch(fetchSingleMovieSuccess(movie));
+  } catch (error) {
+    dispatch(fetchMoviesFailure(error));
+  }
+};
+
+export const fetchCast = (movieId) => async (dispatch) => {
+  try {
+    dispatch(fetchMoviesStart());
+    const cast = await fetchSingleMovieCast(movieId); // Call the TMDB API to fetch all movies
+    dispatch(fetchSingleMovieCastSuccess(cast));
   } catch (error) {
     dispatch(fetchMoviesFailure(error));
   }

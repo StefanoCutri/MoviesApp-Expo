@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
 import {
   ArrowLeftIcon,
@@ -9,9 +9,10 @@ import {
   GlobeAltIcon,
 } from "react-native-heroicons/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneMovie } from "../../reducers/moviesReducer";
+import { fetchCast, fetchOneMovie } from "../../reducers/moviesReducer";
 import StarRating from "react-native-star-rating-widget";
 import ISO6391 from "iso-639-1";
+import CastItem from "./CastItem";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -23,11 +24,11 @@ const MovieDetailsScreen = ({ route, navigation }) => {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
 
-
   console.log(state.singleMovie.id);
 
   useEffect(() => {
     dispatch(fetchOneMovie(movie.id));
+    dispatch(fetchCast(movie.id));
 
     navigation.setOptions({
       title: movie.title,
@@ -72,7 +73,7 @@ const MovieDetailsScreen = ({ route, navigation }) => {
               style={{
                 color: "white",
                 fontWeight: "bold",
-                fontSize: 20,
+                fontSize: 22,
                 marginLeft: 12,
                 width: 250,
               }}
@@ -135,7 +136,7 @@ const MovieDetailsScreen = ({ route, navigation }) => {
             </View>
           </View>
           {/* Right Column */}
-          <View style={{ marginRight: 20, marginTop: 6 }}>
+          <View style={{ marginRight: 32, marginTop: 6 }}>
             {/* Release Date */}
             <View
               style={{
@@ -179,6 +180,23 @@ const MovieDetailsScreen = ({ route, navigation }) => {
         >
           {movie.overview}
         </Text>
+        {/* Cast */}
+        <View style={{
+          marginTop: 40,
+          marginLeft: 15
+        }}>
+          <Text style={{...styles.textWhite, fontWeight: "bold", fontSize: 22}}>Cast</Text>
+          <FlatList
+            data={state.movieCast.cast.slice(0, 10)}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <CastItem item={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginTop: 10,
+            }}
+          />
+        </View>
       </ImageBackground>
     </View>
   );
