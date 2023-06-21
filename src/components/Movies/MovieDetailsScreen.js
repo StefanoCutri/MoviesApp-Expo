@@ -4,8 +4,8 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
 import { ArrowLeftIcon } from "react-native-heroicons/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleMovie } from "../../data/api";
 import { fetchOneMovie } from "../../reducers/moviesReducer";
+import StarRating from "react-native-star-rating-widget";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,11 @@ const MovieDetailsScreen = ({ route, navigation }) => {
     });
   }, [dispatch]);
 
-  const movieGenres = state.singleMovie.genres.slice(0, 3);
+  let movieGenres = [];
+  if (state.singleMovie.genres !== undefined) {
+    movieGenres = state.singleMovie.genres.slice(0, 3);
+  }
+  console.log(movieGenres);
 
   return (
     <View style={styles.container}>
@@ -48,12 +52,38 @@ const MovieDetailsScreen = ({ route, navigation }) => {
         </Text>
         <View style={{ flexDirection: "row", marginLeft: 8 }}>
           {movieGenres.map((genre) => (
-            <View style={{ marginLeft: 5, marginTop: 10, backgroundColor: "#fff", borderRadius: 5 }}>
-              <Text key={genre.name} style={{ color: "#000", padding: 2, paddingHorizontal: 5, fontSize: 13}}>
+            <View
+              key={genre.name}
+              style={{
+                marginLeft: 5,
+                marginTop: 10,
+                backgroundColor: "#fff",
+                borderRadius: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#000",
+                  padding: 2,
+                  paddingHorizontal: 5,
+                  fontSize: 13,
+                }}
+              >
                 {genre.name}
               </Text>
             </View>
           ))}
+        </View>
+        <View style={{ marginLeft: 8, marginTop: 10 }}>
+          <StarRating
+            starSize={25}
+            color="#fff"
+            rating={movie.vote_average / 2}
+            onChange={() => console.log("Rating")}
+            animationConfig={{
+              scale: 1,
+            }}
+          />
         </View>
       </ImageBackground>
     </View>
