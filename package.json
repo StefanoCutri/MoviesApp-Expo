@@ -15,6 +15,8 @@
     "expo": "~48.0.18",
     "expo-linear-gradient": "~12.1.2",
     "expo-status-bar": "~1.4.4",
+    "intl": "^1.2.5",
+    "iso-639-1": "^2.1.15",
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-linear-gradient": "^2.7.3",
