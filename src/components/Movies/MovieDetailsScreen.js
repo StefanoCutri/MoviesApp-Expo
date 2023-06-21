@@ -15,18 +15,19 @@ const MovieDetailsScreen = ({ route, navigation }) => {
   const image = {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
-
   useEffect(() => {
     dispatch(fetchOneMovie(movie.id));
     navigation.setOptions({
       title: movie.title,
       headerLeft: (props) => (
-        <TouchableOpacity onPress={() => navigation.goBack()} >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeftIcon {...props} />
         </TouchableOpacity>
       ),
     });
   }, [dispatch]);
+
+  const movieGenres = state.singleMovie.genres.slice(0, 3);
 
   return (
     <View style={styles.container}>
@@ -40,11 +41,20 @@ const MovieDetailsScreen = ({ route, navigation }) => {
             color: "white",
             fontWeight: "bold",
             fontSize: 24,
-            marginLeft: 20,
+            marginLeft: 12,
           }}
         >
           {movie.title}
         </Text>
+        <View style={{ flexDirection: "row", marginLeft: 8 }}>
+          {movieGenres.map((genre) => (
+            <View style={{ marginLeft: 5, marginTop: 10, backgroundColor: "#fff", borderRadius: 5 }}>
+              <Text key={genre.name} style={{ color: "#000", padding: 2, paddingHorizontal: 5, fontSize: 13}}>
+                {genre.name}
+              </Text>
+            </View>
+          ))}
+        </View>
       </ImageBackground>
     </View>
   );
