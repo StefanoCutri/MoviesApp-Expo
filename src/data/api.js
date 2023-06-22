@@ -24,7 +24,7 @@ export const fetchTopRated = async () => {
     throw error;
   }
 };
-const fetchNowPlaying = async () => {
+ const fetchNowPlaying = async () => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`
@@ -37,7 +37,7 @@ const fetchNowPlaying = async () => {
     throw error;
   }
 };
-const fetchUpcoming = async () => {
+export const fetchUpcoming = async () => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`
