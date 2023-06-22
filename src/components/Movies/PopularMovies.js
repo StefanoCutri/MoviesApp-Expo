@@ -14,11 +14,9 @@ import HeaderImage from "../Header/HeaderImage";
 import SearchInput from "../Header/SearchInput";
 import LinearGradient from "react-native-linear-gradient";
 
-const MovieListScreen = () => {
+const PopularMovies = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.popularMovies);
-
-  console.log(state);
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
@@ -30,10 +28,6 @@ const MovieListScreen = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        {/* Search */}
-        <SearchInput />
-        {/* Content */}
-        <ScrollView>
           {/* Header */}
           {state.popularMovies.length > 0 && (
             <HeaderImage movies={state.popularMovies}>
@@ -52,31 +46,10 @@ const MovieListScreen = () => {
             showsHorizontalScrollIndicator={false}
             horizontal
             style={{
-              marginBottom: 50,
+              marginBottom: 10,
               marginTop: 20,
             }}
           />
-          <FlatList
-            data={state.popularMovies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <MovieItem movie={item} />}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            style={{
-              marginBottom: 50,
-            }}
-          />
-          <FlatList
-            data={state.popularMovies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <MovieItem movie={item} />}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            style={{
-              marginBottom: 60,
-            }}
-          />
-        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -106,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MovieListScreen;
+export default PopularMovies;

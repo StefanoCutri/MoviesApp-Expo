@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const API_KEY = "913e10c847c55fbb2045a16908b5870b";
 
 export const fetchPopular = async () => {
@@ -14,7 +12,7 @@ export const fetchPopular = async () => {
     throw error;
   }
 };
-const fetchTopRated = async () => {
+export const fetchTopRated = async () => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`
@@ -54,18 +52,6 @@ const fetchUpcoming = async () => {
   }
 };
 
-// export const fetchAllMovies = async () => {
-//   try {
-//     const response = await fetch(
-//       `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-//     );
-//     const data = await response.json();
-//     return data.results;
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//     throw error;
-//   }
-// };
 
 export const fetchSingleMovie = async (movideId) => {
   try {

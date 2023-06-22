@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#403d39",
     borderRadius: 8,
     width: 200,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    color: "#fff"
     
   },
 });
