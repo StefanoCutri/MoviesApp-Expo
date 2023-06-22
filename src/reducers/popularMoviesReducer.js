@@ -1,4 +1,4 @@
-// moviesReducer.js
+//popularMoviesReducer.js
 
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchPopular } from "../data/api";
@@ -17,12 +17,7 @@ const popularMoviesSlice = createSlice({
     searchPopularMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
       
-      // console.log(state.popularMovies.length);
-
       state.popularMovies.forEach((movie) => {
-        if (searchTerm === "") {
-          console.log(true);
-        }
         if (movie.title.toLowerCase().includes(searchTerm)) {
           movie.visible = true;
         } else {

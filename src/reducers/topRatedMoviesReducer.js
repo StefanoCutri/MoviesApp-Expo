@@ -15,7 +15,6 @@ const topRatedMoviesSlice = createSlice({
   reducers: {
     searchTopRatedMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
-      console.log(state.topRatedMovies.length);
       state.topRatedMovies.forEach((movie) => {
         if (movie.title.toLowerCase().includes(searchTerm)) {
           movie.visible = true;
