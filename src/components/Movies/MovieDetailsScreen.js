@@ -1,7 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-import { Image, ImageBackground, Text } from "react-native";
+import { ImageBackground, Text } from "react-native";
 import {
   ArrowLeftIcon,
   CalendarIcon,
@@ -9,7 +9,7 @@ import {
   GlobeAltIcon,
 } from "react-native-heroicons/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCast, fetchOneMovie } from "../../reducers/moviesReducer";
+import { fetchCast, fetchOneMovie } from "../../reducers/singleMovieReducer";
 import StarRating from "react-native-star-rating-widget";
 import ISO6391 from "iso-639-1";
 import CastItem from "./CastItem";
@@ -17,18 +17,17 @@ import { ActivityIndicator } from "react-native";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.movies);
-
+  const state = useSelector((state) => state.singleMovie);
+  
   const movie = route.params;
-
+  
   const image = {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
-
+  
   useEffect(() => {
-    // console.log(state.isLoadinSingleMovie);
     dispatch(fetchOneMovie(movie.id));
-    dispatch(fetchCast(state.singleMovie.id));
+    dispatch(fetchCast(movie.id));
 
     navigation.setOptions({
       title: movie.title,
@@ -38,7 +37,7 @@ const MovieDetailsScreen = ({ route, navigation }) => {
         </TouchableOpacity>
       ),
     });
-  }, [dispatch, state.isLoadingSingleMovie]);
+  }, [dispatch]);
 
   let movieGenres = [];
   if (state.singleMovie.genres !== undefined) {
@@ -214,18 +213,17 @@ const MovieDetailsScreen = ({ route, navigation }) => {
             >
               Cast
             </Text>
-            {!state.isLoadingSingleMovie && (
-              <FlatList
-                data={state.movieCast.cast.slice(0, 10)}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <CastItem item={item} />}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                style={{
-                  marginTop: 10,
-                }}
-              />
-            )}
+
+            <FlatList
+              data={state.movieCast.cast}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => <CastItem item={item} />}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              style={{
+                marginTop: 10,
+              }}
+            />
           </View>
         </ImageBackground>
       </View>

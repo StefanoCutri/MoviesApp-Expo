@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   FlatList,
   SafeAreaView,
   ScrollView,
 } from "react-native";
-// import {searchMovies} from './src/reducers/moviesReducer'
 import MovieItem from "./MovieItem";
-import { fetchMovies, searchMovies } from "../../reducers/moviesReducer";
+import { fetchMovies } from "../../reducers/moviesReducer";
 import { ActivityIndicator } from "react-native";
 import HeaderImage from "../Header/HeaderImage";
 import SearchInput from "../Header/SearchInput";
@@ -25,9 +23,9 @@ const MovieListScreen = () => {
     dispatch(fetchMovies());
   }, [dispatch]);
 
-  if (state.isLoading) {
-    return <ActivityIndicator />;
-  } else {
+  // if (state.isLoading) {
+  //   return <ActivityIndicator />;
+  // } else {
     return (
       <SafeAreaView>
         <View style={styles.container}>
@@ -82,7 +80,7 @@ const MovieListScreen = () => {
       </SafeAreaView>
     );
   }
-};
+// };
 
 const styles = StyleSheet.create({
   container: {

@@ -9,15 +9,12 @@ const initialState = {
   now_playing: [],
   trending: [],
   upcoming: [],
-  singleMovie: [],
-  movieCast: [],
   isLoading: false,
-  isLoadinSingleMovie: false,
   error: null,
 };
 
 const moviesSlice = createSlice({
-  name: "movies",
+  name: "singleMovie",
   initialState,
   reducers: {
     searchMovies(state, action) {
@@ -37,7 +34,6 @@ const moviesSlice = createSlice({
     fetchSingleMoviesStart(state) {
       state.isLoadinSingleMovie = true;
       state.error = null;
-      console.log("start", state.isLoadinSingleMovie);
     },
     fetchMoviesSuccess(state, action) {
       state.movies = action.payload;
@@ -48,7 +44,6 @@ const moviesSlice = createSlice({
       state.singleMovie = action.payload;
       state.isLoadinSingleMovie = false;
       state.error = null;
-      console.log("succes", state.isLoadinSingleMovie);
     },
     fetchSingleMovieCastSuccess(state, action){
       state.movieCast = action.payload;
@@ -68,9 +63,6 @@ export const {
   fetchMoviesSuccess,
   fetchMoviesFailure,
   searchMovies,
-  fetchSingleMovieSuccess,
-  fetchSingleMovieCastSuccess,
-  fetchSingleMoviesStart
 } = moviesSlice.actions;
 
 export const fetchMovies = () => async (dispatch) => {
@@ -78,26 +70,6 @@ export const fetchMovies = () => async (dispatch) => {
     dispatch(fetchMoviesStart());
     const movies = await fetchAllMovies(); // Call the TMDB API to fetch all movies
     dispatch(fetchMoviesSuccess(movies));
-  } catch (error) {
-    dispatch(fetchMoviesFailure(error));
-  }
-};
-
-export const fetchOneMovie = (movieId) => async (dispatch) => {
-  try {
-    dispatch(fetchSingleMoviesStart());
-    const movie = await fetchSingleMovie(movieId); // Call the TMDB API to fetch all movies
-    dispatch(fetchSingleMovieSuccess(movie));
-  } catch (error) {
-    dispatch(fetchMoviesFailure(error));
-  }
-};
-
-export const fetchCast = (movieId) => async (dispatch) => {
-  try {
-    dispatch(fetchMoviesStart());
-    const cast = await fetchSingleMovieCast(movieId); // Call the TMDB API to fetch all movies
-    dispatch(fetchSingleMovieCastSuccess(cast));
   } catch (error) {
     dispatch(fetchMoviesFailure(error));
   }
