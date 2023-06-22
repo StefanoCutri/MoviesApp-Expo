@@ -8,7 +8,7 @@ export const HeaderImageBackground = ({ movie }) => {
   };
   return (
     <View style={styles.container}>
-      <ImageBackground style={{ width: "100%", height: 280 }} source={image}>
+      <ImageBackground style={{ width: "100%", height: 200 }} source={image}>
         <LinearGradient
           colors={["#00000000", "#000000"]}
           style={{ height: "100%", width: "100%" }}

@@ -22,21 +22,9 @@ const PopularMovies = () => {
     dispatch(fetchPopularMovies());
   }, [dispatch]);
 
-  // if (state.isLoading) {
-  //   return <ActivityIndicator />;
-  // } else {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-          {/* Header */}
-          {state.popularMovies.length > 0 && (
-            <HeaderImage movies={state.popularMovies}>
-              <LinearGradient
-                colors={["#00000000", "#000000"]}
-                style={{ height: "100%", width: "100%" }}
-              ></LinearGradient>
-            </HeaderImage>
-          )}
           {/* Movies */}
           <Text style={styles.title}>Popular</Text>
           <FlatList
@@ -65,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     marginLeft: 10,
-    marginTop: 100,
+    marginTop: 15,
   },
   loadingIndicator: {
     justifyContent: "center",
