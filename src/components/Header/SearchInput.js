@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchMovies } from "../../reducers/moviesReducer";
+import { searchMovies } from "../../reducers/popularMoviesReducer";
 import {MagnifyingGlassIcon} from 'react-native-heroicons/outline'
 
 const SearchInput = () => {

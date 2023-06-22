@@ -18,6 +18,7 @@ import { ActivityIndicator } from "react-native";
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.singleMovie);
+  console.log(state.singleMovie);
   
   const movie = route.params;
   

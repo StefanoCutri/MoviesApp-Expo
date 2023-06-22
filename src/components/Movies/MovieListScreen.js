@@ -9,77 +9,78 @@ import {
   ScrollView,
 } from "react-native";
 import MovieItem from "./MovieItem";
-import { fetchMovies } from "../../reducers/moviesReducer";
-import { ActivityIndicator } from "react-native";
+import { fetchPopularMovies } from "../../reducers/popularMoviesReducer";
 import HeaderImage from "../Header/HeaderImage";
 import SearchInput from "../Header/SearchInput";
 import LinearGradient from "react-native-linear-gradient";
 
 const MovieListScreen = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.movies);
+  const state = useSelector((state) => state.popularMovies);
+
+  console.log(state);
 
   useEffect(() => {
-    dispatch(fetchMovies());
+    dispatch(fetchPopularMovies());
   }, [dispatch]);
 
   // if (state.isLoading) {
   //   return <ActivityIndicator />;
   // } else {
-    return (
-      <SafeAreaView>
-        <View style={styles.container}>
-          {/* Search */}
-          <SearchInput />
-          {/* Content */}
-          <ScrollView>
-            {/* Header */}
-            {state.movies.length > 0 && (
-              <HeaderImage movies={state.movies}>
-                <LinearGradient
-                  colors={["#00000000", "#000000"]}
-                  style={{ height: "100%", width: "100%" }}
-                ></LinearGradient>
-              </HeaderImage>
-            )}
-            {/* Movies */}
-            <Text style={styles.title}>Popular</Text>
-            <FlatList
-              data={state.movies}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => <MovieItem movie={item} />}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              style={{
-                marginBottom: 50,
-                marginTop: 20,
-              }}
-            />
-            <FlatList
-              data={state.movies}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => <MovieItem movie={item} />}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              style={{
-                marginBottom: 50,
-              }}
-            />
-            <FlatList
-              data={state.movies}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => <MovieItem movie={item} />}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              style={{
-                marginBottom: 60,
-              }}
-            />
-          </ScrollView>
-        </View>
-      </SafeAreaView>
-    );
-  }
+  return (
+    <SafeAreaView>
+      <View style={styles.container}>
+        {/* Search */}
+        <SearchInput />
+        {/* Content */}
+        <ScrollView>
+          {/* Header */}
+          {state.popularMovies.length > 0 && (
+            <HeaderImage movies={state.popularMovies}>
+              <LinearGradient
+                colors={["#00000000", "#000000"]}
+                style={{ height: "100%", width: "100%" }}
+              ></LinearGradient>
+            </HeaderImage>
+          )}
+          {/* Movies */}
+          <Text style={styles.title}>Popular</Text>
+          <FlatList
+            data={state.popularMovies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 50,
+              marginTop: 20,
+            }}
+          />
+          <FlatList
+            data={state.popularMovies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 50,
+            }}
+          />
+          <FlatList
+            data={state.popularMovies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <MovieItem movie={item} />}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={{
+              marginBottom: 60,
+            }}
+          />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
+  );
+};
 // };
 
 const styles = StyleSheet.create({
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     marginLeft: 10,
-    marginTop: 100
+    marginTop: 100,
   },
   loadingIndicator: {
     justifyContent: "center",

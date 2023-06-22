@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { moviesReducer, singleMovieReducer } from './reducers/index';
+import { popularMoviesReducer, singleMovieReducer } from './reducers/index';
 
 
 const store = configureStore({
   reducer: {
-    movies: moviesReducer,
+    popularMovies: popularMoviesReducer,
     singleMovie: singleMovieReducer
   },
 });

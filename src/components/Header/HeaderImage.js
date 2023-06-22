@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import HeaderImageBackground from "./HeaderImageBackground";
 
 const HeaderImage = () => {
-  const state = useSelector((state) => state.movies);
+  const state = useSelector((state) => state.popularMovies);
   const getRandomNum = (maxLim) => {
     let rand = Math.random() * maxLim;
     rand = Math.floor(rand);
@@ -12,7 +12,7 @@ const HeaderImage = () => {
   };
 
   const memoizedMovie = useMemo(
-    () => state.movies[getRandomNum(state.movies.length)],
+    () => state.popularMovies[getRandomNum(state.popularMovies.length)],
     []
   );
 
