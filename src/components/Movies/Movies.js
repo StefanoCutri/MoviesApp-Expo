@@ -33,6 +33,7 @@ export const Movies = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
+    height: "100%"
   },
   title: {
     fontSize: 20,

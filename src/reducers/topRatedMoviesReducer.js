@@ -13,7 +13,7 @@ const topRatedMoviesSlice = createSlice({
   name: "topRatedMovies",
   initialState,
   reducers: {
-    searchMovies(state, action) {
+    searchTopRatedMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
       state.topRatedMovies.forEach((movie) => {
         if (movie.title.toLowerCase().includes(searchTerm)) {
@@ -44,7 +44,7 @@ export const {
   fetchTopRatedMoviesStart,
   fetchTopRatedMoviesSuccess,
   fetchTopRatedMoviesFailure,
-  searchMovies,
+  searchTopRatedMovies,
 } = topRatedMoviesSlice.actions;
 
 export const fetchTopRatedMovies = () => async (dispatch) => {

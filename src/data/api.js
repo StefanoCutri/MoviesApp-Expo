@@ -18,7 +18,6 @@ export const fetchTopRated = async () => {
       `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`
     );
     const data = await response.json();
-    console.log("toprated", data.results.length);
     return data.results;
   } catch (error) {
     console.error("Error fetching movies:", error);

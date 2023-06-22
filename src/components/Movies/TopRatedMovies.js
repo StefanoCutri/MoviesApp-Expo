@@ -9,30 +9,28 @@ import {
   ScrollView,
 } from "react-native";
 import MovieItem from "./MovieItem";
-import HeaderImage from "../Header/HeaderImage";
-import SearchInput from "../Header/SearchInput";
-import LinearGradient from "react-native-linear-gradient";
 import { fetchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
 
 const topRatedMovies = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.topRatedMovies);
-console.log("top rated", state.topRatedMovies);
   useEffect(() => {
     dispatch(fetchTopRatedMovies());
   }, [dispatch]);
 
-  // if (state.isLoading) {
-  //   return <ActivityIndicator />;
-  // } else {
+  let noMoviesResult = state.topRatedMovies.every((element) => {
+    return !element.visible;
+  });
+
   return (
-   
-      <View style={styles.container}>
-      
-        {/* Content */}
-        <ScrollView>
-          {/* Movies */}
-          <Text style={styles.title}>Top Rated</Text>
+    <View style={styles.container}>
+      {/* Content */}
+      <ScrollView>
+        {/* Movies */}
+        <Text style={styles.title}>Top Rated</Text>
+        {noMoviesResult ? (
+          <Text style={{...styles.title, fontWeight:"normal"}}>No results</Text>
+        ) : (
           <FlatList
             data={state.topRatedMovies}
             keyExtractor={(item) => item.id.toString()}
@@ -44,8 +42,9 @@ console.log("top rated", state.topRatedMovies);
               marginTop: 20,
             }}
           />
-        </ScrollView>
-      </View>
+        )}
+      </ScrollView>
+    </View>
   );
 };
 // };
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginLeft: 10,
     marginTop: 30,
-  }
+  },
 });
 
 export default topRatedMovies;

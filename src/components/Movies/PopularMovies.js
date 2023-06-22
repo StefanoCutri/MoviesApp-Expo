@@ -10,23 +10,26 @@ import {
 } from "react-native";
 import MovieItem from "./MovieItem";
 import { fetchPopularMovies } from "../../reducers/popularMoviesReducer";
-import HeaderImage from "../Header/HeaderImage";
-import SearchInput from "../Header/SearchInput";
-import LinearGradient from "react-native-linear-gradient";
-
 const PopularMovies = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.popularMovies);
 
+  let noMoviesResult = state.popularMovies.every((element) => {
+    return !element.visible;
+  });
+
   useEffect(() => {
     dispatch(fetchPopularMovies());
   }, [dispatch]);
-
+  console.log(state.popularMovies.length);
   return (
     <SafeAreaView>
       <View style={styles.container}>
-          {/* Movies */}
-          <Text style={styles.title}>Popular</Text>
+        {/* Movies */}
+        <Text style={styles.title}>Popular</Text>
+        {noMoviesResult ? (
+          <Text style={{...styles.title, fontWeight:"normal"}}>No results</Text>
+        ) : (
           <FlatList
             data={state.popularMovies}
             keyExtractor={(item) => item.id.toString()}
@@ -38,6 +41,7 @@ const PopularMovies = () => {
               marginTop: 20,
             }}
           />
+        )}
       </View>
     </SafeAreaView>
   );

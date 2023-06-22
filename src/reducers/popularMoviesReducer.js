@@ -6,6 +6,7 @@ import { fetchPopular } from "../data/api";
 const initialState = {
   popularMovies: [],
   isPopularLoading: false,
+  popularMoviesError: false,
   error: null,
 };
 
@@ -13,7 +14,7 @@ const popularMoviesSlice = createSlice({
   name: "popularMovies",
   initialState,
   reducers: {
-    searchMovies(state, action) {
+    searchPopularMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
       state.popularMovies.forEach((movie) => {
         if (movie.title.toLowerCase().includes(searchTerm)) {
@@ -44,7 +45,7 @@ export const {
   fetchPopularMoviesStart,
   fetchPopularMoviesSuccess,
   fetchPopularMoviesFailure,
-  searchMovies,
+  searchPopularMovies,
 } = popularMoviesSlice.actions;
 
 export const fetchPopularMovies = () => async (dispatch) => {

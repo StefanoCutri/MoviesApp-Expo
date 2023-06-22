@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { searchMovies } from "../../reducers/popularMoviesReducer";
+import { useDispatch } from "react-redux";
+import { searchPopularMovies } from "../../reducers/popularMoviesReducer";
 import {MagnifyingGlassIcon} from 'react-native-heroicons/outline'
+import { searchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
 
 const SearchInput = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,7 +11,8 @@ const SearchInput = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(searchMovies(searchTerm));
+    dispatch(searchPopularMovies(searchTerm));
+    dispatch(searchTopRatedMovies(searchTerm))
   }, [searchTerm]);
 
   const handleSearch = (textValue) => {
@@ -34,8 +36,6 @@ const SearchInput = () => {
         placeholderTextColor="#fff"
         value={searchTerm}
         onChangeText={handleSearch}
-        onSubmitEditing={handleSearch}
-        
         />
         <MagnifyingGlassIcon color="#fff" style={{position: "absolute", right: 10, top: 3}}/>
         </View>
