@@ -21,7 +21,6 @@ const PopularMovies = () => {
   useEffect(() => {
     dispatch(fetchPopularMovies());
   }, [dispatch]);
-  console.log(state.popularMovies.length);
   return (
     <SafeAreaView>
       <View style={styles.container}>

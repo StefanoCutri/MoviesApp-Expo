@@ -16,7 +16,13 @@ const popularMoviesSlice = createSlice({
   reducers: {
     searchPopularMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
+      
+      // console.log(state.popularMovies.length);
+
       state.popularMovies.forEach((movie) => {
+        if (searchTerm === "") {
+          console.log(true);
+        }
         if (movie.title.toLowerCase().includes(searchTerm)) {
           movie.visible = true;
         } else {
@@ -29,8 +35,8 @@ const popularMoviesSlice = createSlice({
       state.error = null;
     },
 
-    fetchPopularMoviesSuccess(state, action){
-      state.popularMovies = action.payload
+    fetchPopularMoviesSuccess(state, action) {
+      state.popularMovies = action.payload;
       state.isPopularLoading = false;
       state.error = null;
     },
@@ -57,6 +63,5 @@ export const fetchPopularMovies = () => async (dispatch) => {
     dispatch(fetchPopularMoviesFailure(error));
   }
 };
-
 
 export default popularMoviesSlice.reducer;
