@@ -6,7 +6,6 @@ import {
   View,
   FlatList,
   SafeAreaView,
-  ScrollView,
 } from "react-native";
 import MovieItem from "./MovieItem";
 import { fetchPopularMovies } from "../../reducers/popularMoviesReducer";

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { searchPopularMovies } from "../../reducers/popularMoviesReducer";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import { searchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
+import { searchUpcomingMovies } from "../../reducers/upcomingMoviesReducer";
 
 const SearchInput = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +15,7 @@ const SearchInput = () => {
     setTimeout(() => {
       dispatch(searchPopularMovies(searchTerm));
       dispatch(searchTopRatedMovies(searchTerm));
+      dispatch(searchUpcomingMovies(searchTerm))
     }, 1500);
   }, [searchTerm]);
 

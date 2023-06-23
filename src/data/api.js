@@ -43,7 +43,6 @@ export const fetchUpcoming = async () => {
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`
     );
     const data = await response.json();
-    console.log("upcoming", data.results.length);
     return data.results;
   } catch (error) {
     console.error("Error fetching movies:", error);

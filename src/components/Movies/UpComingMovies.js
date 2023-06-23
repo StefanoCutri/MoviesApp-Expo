@@ -5,20 +5,19 @@ import {
   Text,
   View,
   FlatList,
-  SafeAreaView,
   ScrollView,
 } from "react-native";
 import MovieItem from "./MovieItem";
-import { fetchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
+import { fetchupcomingMovies } from "../../reducers/upcomingMoviesReducer";
 
-const topRatedMovies = () => {
+const UpComingMovies = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.topRatedMovies);
+  const state = useSelector((state) => state.upcomingMovies);
   useEffect(() => {
-    dispatch(fetchTopRatedMovies());
+    dispatch(fetchupcomingMovies());
   }, [dispatch]);
 
-  let noMoviesResult = state.topRatedMovies.every((element) => {
+  let noMoviesResult = state.upcomingMovies.every((element) => {
     return !element.visible;
   });
 
@@ -27,12 +26,12 @@ const topRatedMovies = () => {
       {/* Content */}
       <ScrollView>
         {/* Movies */}
-        <Text style={styles.title}>Top Rated</Text>
+        <Text style={styles.title}>Up Coming</Text>
         {noMoviesResult ? (
           <Text style={{...styles.title, fontWeight:"normal"}}>No results</Text>
         ) : (
           <FlatList
-            data={state.topRatedMovies}
+            data={state.upcomingMovies}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => <MovieItem movie={item} />}
             showsHorizontalScrollIndicator={false}
@@ -62,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default topRatedMovies;
+export default UpComingMovies;

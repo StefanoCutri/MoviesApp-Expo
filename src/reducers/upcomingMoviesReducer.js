@@ -1,6 +1,6 @@
 //popularMoviesReducer.js
 import { createSlice } from "@reduxjs/toolkit";
-import {fetchUpcoming} from '../data/api'
+import { fetchUpcoming } from "../data/api";
 
 const initialState = {
   upcomingMovies: [],
@@ -13,9 +13,8 @@ const upcomingMoviesSlice = createSlice({
   name: "upcomingMovies",
   initialState,
   reducers: {
-    searchupcomingMovies(state, action) {
+    searchUpcomingMovies(state, action) {
       const searchTerm = action.payload.toLowerCase();
-      
       state.upcomingMovies.forEach((movie) => {
         if (movie.title.toLowerCase().includes(searchTerm)) {
           movie.visible = true;
@@ -45,7 +44,7 @@ export const {
   fetchupcomingMoviesStart,
   fetchupcomingMoviesSuccess,
   fetchupcomingMoviesFailure,
-  searchupcomingMovies,
+  searchUpcomingMovies,
 } = upcomingMoviesSlice.actions;
 
 export const fetchupcomingMovies = () => async (dispatch) => {
@@ -58,4 +57,4 @@ export const fetchupcomingMovies = () => async (dispatch) => {
   }
 };
 
-export default popularMoviesSlice.reducer;
+export default upcomingMoviesSlice.reducer;
