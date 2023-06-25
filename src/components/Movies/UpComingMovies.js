@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import MovieItem from "./MovieItem";
 import { fetchupcomingMovies } from "../../reducers/upcomingMoviesReducer";
@@ -24,25 +25,31 @@ const UpComingMovies = () => {
   return (
     <View style={styles.container}>
       {/* Content */}
-      <ScrollView>
         {/* Movies */}
         <Text style={styles.title}>Up Coming</Text>
-        {noMoviesResult ? (
-          <Text style={{...styles.title, fontWeight:"normal"}}>No results</Text>
+        {state.isUpcomingLoading ? (
+          <ActivityIndicator size={40} color="#fff" />
         ) : (
-          <FlatList
-            data={state.upcomingMovies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <MovieItem movie={item} />}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            style={{
-              paddingBottom: 50,
-              marginTop: 20,
-            }}
-          />
+          <View>
+            {noMoviesResult ? (
+              <Text style={{ ...styles.title, fontWeight: "normal" }}>
+                No results
+              </Text>
+            ) : (
+              <FlatList
+                data={state.upcomingMovies}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => <MovieItem movie={item} />}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                style={{
+                  marginBottom: 10,
+                  marginTop: 20,
+                }}
+              />
+            )}
+          </View>
         )}
-      </ScrollView>
     </View>
   );
 };
@@ -51,6 +58,7 @@ const UpComingMovies = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
+    marginBottom: 100
   },
   title: {
     fontSize: 20,

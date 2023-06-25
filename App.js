@@ -23,7 +23,7 @@ export default function App() {
               fontWeight: "bold",
             },
             // headerBackTitleVisible: false,
-            headerBackTitle: "Hola"
+            headerBackTitle: "Hola",
           }}
         >
           <Stack.Screen
