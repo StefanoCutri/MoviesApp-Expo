@@ -24,7 +24,7 @@ export const fetchTopRated = async () => {
     throw error;
   }
 };
- const fetchNowPlaying = async () => {
+ export const fetchNowPlaying = async () => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`

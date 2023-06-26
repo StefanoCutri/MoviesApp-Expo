@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { popularMoviesReducer, singleMovieReducer, topRatedMoviesReducer, upcomingMoviesReducer } from './reducers/index';
+import { nowPlayingMoviesReducer, popularMoviesReducer, singleMovieReducer, topRatedMoviesReducer, upcomingMoviesReducer } from './reducers/index';
 
 
 const store = configureStore({
@@ -7,7 +7,8 @@ const store = configureStore({
     popularMovies: popularMoviesReducer,
     singleMovie: singleMovieReducer,
     topRatedMovies: topRatedMoviesReducer,
-    upcomingMovies: upcomingMoviesReducer
+    upcomingMovies: upcomingMoviesReducer,
+    nowPlayinMovies: nowPlayingMoviesReducer
   },
 });
 
