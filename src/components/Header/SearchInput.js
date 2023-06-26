@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchPopularMovies } from "../../reducers/popularMoviesReducer";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
+import { searchPopularMovies } from "../../reducers/popularMoviesReducer";
 import { searchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
 import { searchUpcomingMovies } from "../../reducers/upcomingMoviesReducer";
+import { searchNowPlayingMovies } from "../../reducers/nowPlayingMoviesReducer";
 
 const SearchInput = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +16,8 @@ const SearchInput = () => {
     setTimeout(() => {
       dispatch(searchPopularMovies(searchTerm));
       dispatch(searchTopRatedMovies(searchTerm));
-      dispatch(searchUpcomingMovies(searchTerm))
+      dispatch(searchUpcomingMovies(searchTerm));
+      dispatch(searchNowPlayingMovies(searchTerm));
     }, 1500);
   }, [searchTerm]);
 

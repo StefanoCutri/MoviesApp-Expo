@@ -5,15 +5,16 @@ import {
   Text,
   View,
   FlatList,
-  ScrollView,
   ActivityIndicator,
 } from "react-native";
+
 import MovieItem from "./MovieItem";
 import { fetchupcomingMovies } from "../../reducers/upcomingMoviesReducer";
 
 const UpComingMovies = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.upcomingMovies);
+
   useEffect(() => {
     dispatch(fetchupcomingMovies());
   }, [dispatch]);
@@ -24,7 +25,6 @@ const UpComingMovies = () => {
 
   return (
     <View style={styles.container}>
-      {/* Content */}
         {/* Movies */}
         <Text style={styles.title}>Up Coming</Text>
         {state.isUpcomingLoading ? (
@@ -58,7 +58,7 @@ const UpComingMovies = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
-    marginBottom: 100
+    marginBottom: 20
   },
   title: {
     fontSize: 20,

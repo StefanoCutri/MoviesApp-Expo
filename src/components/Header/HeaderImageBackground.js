@@ -1,6 +1,6 @@
-import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { View, Text, Image, ImageBackground, StyleSheet } from "react-native";
+import { View, ImageBackground, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const HeaderImageBackground = ({ movie }) => {
   const image = {

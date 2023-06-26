@@ -1,7 +1,6 @@
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-import { ImageBackground, Text } from "react-native";
+import { ImageBackground, Text, ActivityIndicator } from "react-native";
 import {
   ArrowLeftIcon,
   CalendarIcon,
@@ -9,23 +8,25 @@ import {
   GlobeAltIcon,
 } from "react-native-heroicons/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCast, fetchOneMovie } from "../../reducers/singleMovieReducer";
+
+import { LinearGradient } from "expo-linear-gradient";
 import StarRating from "react-native-star-rating-widget";
 import ISO6391 from "iso-639-1";
+
+import { fetchCast, fetchOneMovie } from "../../reducers/singleMovieReducer";
 import CastItem from "./CastItem";
-import { ActivityIndicator } from "react-native";
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.singleMovie);
   console.log(state.singleMovie);
-  
+
   const movie = route.params;
-  
+
   const image = {
     uri: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`,
   };
-  
+
   useEffect(() => {
     dispatch(fetchOneMovie(movie.id));
     dispatch(fetchCast(movie.id));

@@ -1,25 +1,25 @@
 import React from "react";
-import MovieListScreen from "./PopularMovies";
-import TopRatedMovies from "../Movies/TopRatedMovies";
 import {
   Keyboard,
   RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import SearchInput from "../Header/SearchInput";
-import { useDispatch, useSelector } from "react-redux";
-import HeaderImage from "../Header/HeaderImage";
+
+import { useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
+
 import UpComingMovies from "./UpComingMovies";
 import PopularMovies from "./PopularMovies";
-import { fetchPopularMovies } from "../../reducers/popularMoviesReducer";
-import { fetchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
-import { fetchupcomingMovies } from "../../reducers/upcomingMoviesReducer";
+import NowPlayingMovies from "./NowPlayingMovies";
+import TopRatedMovies from "../Movies/TopRatedMovies";
+
+import HeaderImage from "../Header/HeaderImage";
+import SearchInput from "../Header/SearchInput";
+
 export const Movies = () => {
   const state = useSelector((state) => state.popularMovies);
   const [refreshing, setRefreshing] = React.useState(false);
@@ -32,10 +32,10 @@ export const Movies = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: "#000", flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: "#000", flex: 1 }}>
       <SearchInput />
       <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1 }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -55,10 +55,11 @@ export const Movies = () => {
                 ></LinearGradient>
               </HeaderImage>
             )}
-              <PopularMovies />
-              <TopRatedMovies />
-              <UpComingMovies />
-            </View>
+            <PopularMovies />
+            <TopRatedMovies />
+            <UpComingMovies />
+            <NowPlayingMovies />
+          </View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </SafeAreaView>
@@ -76,6 +77,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-   flexGrow: 1
+    flexGrow: 1,
   },
 });

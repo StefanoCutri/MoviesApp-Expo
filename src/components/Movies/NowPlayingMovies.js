@@ -7,25 +7,27 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import MovieItem from "./MovieItem";
-import { fetchTopRatedMovies } from "../../reducers/topRatedMoviesReducer";
 
-const topRatedMovies = () => {
+import MovieItem from "./MovieItem";
+
+import { fetchNowPlayingMovies } from "../../reducers/nowPlayingMoviesReducer";
+
+const NowPlayingMovies = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.topRatedMovies);
-  
+  const state = useSelector((state) => state.nowPlayinMovies);
   useEffect(() => {
-    dispatch(fetchTopRatedMovies());
+    dispatch(fetchNowPlayingMovies());
   }, [dispatch]);
 
-  let noMoviesResult = state.topRatedMovies.every((element) => {
+  let noMoviesResult = state.nowPlayingMovies.every((element) => {
+    console.log(element.visible);
     return !element.visible;
   });
 
   return (
     <View style={styles.container}>
       {/* Movies */}
-      <Text style={styles.title}>Top Rated</Text>
+      <Text style={styles.title}>Now Playing</Text>
       {state.isTopRatedLoading ? (
         <ActivityIndicator size={40} color="#fff" />
       ) : (
@@ -36,7 +38,7 @@ const topRatedMovies = () => {
             </Text>
           ) : (
             <FlatList
-              data={state.topRatedMovies}
+              data={state.nowPlayingMovies}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => <MovieItem movie={item} />}
               showsHorizontalScrollIndicator={false}
@@ -67,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default topRatedMovies;
+export default NowPlayingMovies;

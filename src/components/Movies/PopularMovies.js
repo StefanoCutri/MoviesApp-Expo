@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -8,8 +7,11 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+
 import MovieItem from "./MovieItem";
 import { fetchPopularMovies } from "../../reducers/popularMoviesReducer";
+
 const PopularMovies = () => {
   const state = useSelector((state) => state.popularMovies);
   const dispatch = useDispatch();

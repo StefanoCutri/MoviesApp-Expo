@@ -24,13 +24,12 @@ export const fetchTopRated = async () => {
     throw error;
   }
 };
- export const fetchNowPlaying = async () => {
+export const fetchNowPlaying = async () => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`
     );
     const data = await response.json();
-    console.log("NOWPLAYING", data.results.length);
     return data.results;
   } catch (error) {
     console.error("Error fetching movies:", error);
@@ -49,7 +48,6 @@ export const fetchUpcoming = async () => {
     throw error;
   }
 };
-
 
 export const fetchSingleMovie = async (movideId) => {
   try {

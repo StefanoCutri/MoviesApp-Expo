@@ -2,7 +2,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  fetchAllMovies,
   fetchSingleMovie,
   fetchSingleMovieCast,
 } from "../data/api";
